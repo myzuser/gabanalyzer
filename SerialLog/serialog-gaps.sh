@@ -6,9 +6,13 @@ sec=`date +%s`
 while read newline
 do
    mynew=$(echo "$newline" | grep -Eo '[0-9]+\.[0-9]+')
-   newnew=$(echo $mynew | awk '{print $1}') 
+   echo $mynew
+   newnew=$(echo $mynew | awk '{print $1}')
+   echo $newnew
    conv1=$(date -d"70-1-1 + $sec sec - $units sec - $newnew sec" +"%F %T")
+   echo $conv1
    new=$(date -d "$( echo "$conv1" | awk '{sub(/:[0-9]+\|/,"|",$2);print $1}' )" '+%s' )
+   echo $new
     if [ "$old" ] && (( $new - $old > 300))
     then
         printf "%4i seconds gap before %s\n" "$((new - old))" "$newline"
